@@ -507,8 +507,8 @@
         </div>
       </div>
 
-      <div class="hint" id="hint">Geser kiri atau kanan. Ambil koin, hindari tulisan lambat, penipuan, dan biaya tinggi. Hati-hati dengan koin -5.</div>
-      <div class="event-ribbon">Kejar koin, klaim voucher, lanjut sampai gratis ongkir</div>
+      <div class="hint" id="hint">Geser kiri atau kanan. Ambil koin, hindari Lambat, Penipuan, dan Biaya tinggi.</div>
+      <div class="event-ribbon">Kejar koin, buka voucher, lanjut sampai gratis ongkir</div>
       <div class="corner-badge left">50+</div>
       <div class="corner-badge right">300</div>
 
@@ -741,7 +741,7 @@
       state.running = true;
       state.over = false;
       state.mode = "playing";
-      state.spawnTimer = Math.min(state.spawnTimer, 0.22);
+      state.spawnTimer = Math.min(state.spawnTimer, 0.34);
       state.lastFrame = performance.now();
       voucherLink.classList.remove("is-visible");
       overlay.classList.remove("is-visible");
@@ -871,16 +871,16 @@
       }
 
       state.time += dt;
-      const speedBoost = state.score >= 50 ? 280 : 0;
-      const speed = 520 + speedBoost + state.time * 30 + Math.floor(state.score / 20) * 26;
+      const speedBoost = state.score >= 50 ? 95 : 0;
+      const speed = 390 + speedBoost + state.time * 16 + Math.floor(state.score / 30) * 14;
       state.spawnTimer -= dt;
       state.playerX += (laneX(state.targetLane) - state.playerX) * Math.min(1, dt * 14);
       state.shake = Math.max(0, state.shake - dt * 35);
 
       if (state.spawnTimer <= 0) {
         spawnItem();
-        const fastSpawn = state.score >= 50 ? 0.18 : 0;
-        state.spawnTimer = Math.max(0.2, 0.46 - fastSpawn - state.time * 0.01);
+        const fastSpawn = state.score >= 50 ? 0.06 : 0;
+        state.spawnTimer = Math.max(0.34, 0.62 - fastSpawn - state.time * 0.005);
       }
 
       const playerY = state.height - 114;
