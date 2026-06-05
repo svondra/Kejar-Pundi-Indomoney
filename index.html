@@ -507,10 +507,10 @@
         </div>
       </div>
 
-      <div class="hint" id="hint">Geser kiri atau kanan. Ambil koin plus, hindari rintangan blok dan koin minus!</div>
-      <div class="event-ribbon">Kejar koin, klaim voucher, main terus hingga gratis ongkir</div>
-      <div class="corner-badge left">50+</div>
-      <div class="corner-badge right">300</div>
+      <div class="hint" id="hint">Geser kiri atau kanan. Ambil koin, hindari Lambat, Penipuan, dan Biaya tinggi.</div>
+      <div class="event-ribbon">Kejar koin, buka voucher, lanjut sampai gratis ongkir</div>
+      <div class="corner-badge left">20+</div>
+      <div class="corner-badge right">100</div>
 
       <div class="overlay is-visible" id="overlay">
         <div class="modal">
@@ -531,10 +531,10 @@
             </div>
           </div>
           <div class="rewards" aria-label="Hadiah poin">
-            <div class="reward-row"><span>50 koin</span><strong>Potongan 20 NT</strong></div>
-            <div class="reward-row"><span>100 koin</span><strong>Potongan 50 NT</strong></div>
-            <div class="reward-row"><span>200 koin</span><strong>Potongan 75 NT</strong></div>
-            <div class="reward-row"><span>300 koin</span><strong>Gratis ongkir</strong></div>
+            <div class="reward-row"><span>20 koin</span><strong>Potongan 20 NT</strong></div>
+            <div class="reward-row"><span>40 koin</span><strong>Potongan 50 NT</strong></div>
+            <div class="reward-row"><span>60 koin</span><strong>Potongan 75 NT</strong></div>
+            <div class="reward-row"><span>100 koin</span><strong>Gratis ongkir</strong></div>
           </div>
           <div class="actions">
             <button id="startButton" type="button">Tap to start</button>
@@ -594,10 +594,10 @@
     };
 
     const rewardMilestones = [
-      { score: 50, reward: "Potongan 20 NT", url: "https://forms.cloud.microsoft/r/eF25t9HBfz" },
-      { score: 100, reward: "Potongan 50 NT", url: "https://forms.cloud.microsoft/r/3VGL4JJArj" },
-      { score: 200, reward: "Potongan 75 NT", url: "https://forms.cloud.microsoft/r/td69zrGAxA" },
-      { score: 300, reward: "Gratis ongkir", url: "https://forms.cloud.microsoft/r/bdHSiKsWgr", final: true }
+      { score: 20, reward: "Potongan 20 NT", url: "https://forms.cloud.microsoft/r/eF25t9HBfz" },
+      { score: 40, reward: "Potongan 50 NT", url: "https://forms.cloud.microsoft/r/3VGL4JJArj" },
+      { score: 60, reward: "Potongan 75 NT", url: "https://forms.cloud.microsoft/r/td69zrGAxA" },
+      { score: 100, reward: "Gratis ongkir", url: "https://forms.cloud.microsoft/r/bdHSiKsWgr", final: true }
     ];
 
     const itemTypes = [
@@ -681,7 +681,7 @@
         session_id: state.sessionId,
         score: String(score),
         duration_sec: String(duration),
-        reached_target: String(score >= 300).toUpperCase(),
+        reached_target: String(score >= 100).toUpperCase(),
         day_name: dayNames[now.getDay()],
         date: formatDateOnly(now),
         user_agent: navigator.userAgent,
@@ -758,7 +758,7 @@
         state.best = finalScore;
         localStorage.setItem("indoMoneyWalletRunnerBest", String(state.best));
       }
-      if (reward.final) sendPlayLog("reached_300");
+      if (reward.final) sendPlayLog("reached_100");
 
       headlineEl.textContent = reward.final ? "Selamat!" : `${reward.score} Koin`;
       messageEl.textContent = reward.final
@@ -871,16 +871,16 @@
       }
 
       state.time += dt;
-      const speedBoost = state.score >= 50 ? 95 : 0;
-      const speed = 390 + speedBoost + state.time * 16 + Math.floor(state.score / 30) * 14;
+      const speedBoost = state.score >= 50 ? 70 : 0;
+      const speed = 390 + speedBoost + state.time * 13 + Math.floor(state.score / 35) * 10;
       state.spawnTimer -= dt;
       state.playerX += (laneX(state.targetLane) - state.playerX) * Math.min(1, dt * 14);
       state.shake = Math.max(0, state.shake - dt * 35);
 
       if (state.spawnTimer <= 0) {
         spawnItem();
-        const fastSpawn = state.score >= 50 ? 0.06 : 0;
-        state.spawnTimer = Math.max(0.34, 0.62 - fastSpawn - state.time * 0.005);
+        const fastSpawn = state.score >= 50 ? 0.04 : 0;
+        state.spawnTimer = Math.max(0.36, 0.62 - fastSpawn - state.time * 0.004);
       }
 
       const playerY = state.height - 114;
